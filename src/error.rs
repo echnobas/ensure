@@ -6,6 +6,14 @@ pub enum EnsureError {
     Malformed,
 }
 
+impl std::fmt::Display for EnsureError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+impl std::error::Error for EnsureError {}
+
 impl From<rss::Error> for EnsureError {
     fn from(e: rss::Error) -> Self {
         Self::FeedErr(e)

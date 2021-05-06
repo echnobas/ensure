@@ -13,7 +13,6 @@ pub fn append_read(items: Vec<Item>) -> Result<(), EnsureError> {
         contents += &format_item(&item).unwrap();
         contents
     });
-    println!("{}", contents);
     write!(file, "{}", contents)?;
     Ok(())
 }
