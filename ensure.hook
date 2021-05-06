@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Checking Arch News with Ensure ...
+When = PreTransaction
+Exec = /bin/ensure check
+AbortOnFail

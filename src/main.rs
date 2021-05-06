@@ -15,6 +15,20 @@ extern "C" {
     fn geteuid() -> u32;
 }
 
+macro_rules! input {
+    () => { input!("") };
+    ($($arg:tt)*) => {{
+        use std::io::Write;
+        (|| -> std::io::Result<String> {
+            print!("{}", std::fmt::format(::std::format_args!($($arg)*)));
+            std::io::stdout().flush()?;
+            let mut res = String::new();
+            std::io::stdin().read_line(&mut res)?;
+            Ok(res.trim().to_string())
+        })()
+    }};
+}
+
 
 #[derive(StructOpt, Debug)]
 #[structopt(name = "ensure")]
@@ -61,7 +75,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         item.pub_date().unwrap(),
                         item.title().unwrap(),
                         item.description().unwrap(),
-                    )
+                    );
+                    input!()?;
                 }
                 fs::append_read(unread.items).unwrap();
             } else {
